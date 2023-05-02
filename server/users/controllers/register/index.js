@@ -1,7 +1,7 @@
 const validations = require("../../validations");
 
 const register = (req, res) => {
-    const { username, email, password, cpassword } = req.body;
+    const { username, email, password, cpassword, ...others } = req.body;
 
     const result = validations.register(username, email, password, cpassword);
 
@@ -11,7 +11,7 @@ const register = (req, res) => {
         return;
     }
 
-    res.send({ username, email, password, cpassword });
+    res.send({ username, email, password, cpassword, ...others });
 }
 
 module.exports = register;
