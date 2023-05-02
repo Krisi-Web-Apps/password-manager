@@ -1,21 +1,9 @@
-const executeQuery = (sql, connection) => {
-    const promise = new Promise((resolve, reject) => {
-        connection.query(sql, (err, result) => {
-            if (err) reject(err);
-            resolve(result);
-        });
-    });
-
-    return promise;
-}
-
-const fs = require("fs");
-
-const readSQLFileAsString = (filePath) => {
-    return fs.readFileSync(`${filePath}.sql`).toString();
-}
+const executeQuery = require("./execute-query");
+const passwordHash = require("./password-hash");
+const readSQLFileAsString = require("./read-sql-file-as-string");
 
 module.exports = {
     executeQuery,
     readSQLFileAsString,
+    passwordHash,
 }
