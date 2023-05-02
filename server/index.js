@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 // routers
 app.use("/", require("./routers"));
+app.use("/users", require("./users/routers"));
 
 app.listen(PORT, () => {
     console.log("Server started on port: " + PORT);
