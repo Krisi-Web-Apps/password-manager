@@ -4,6 +4,7 @@ const byEmail = require("./by-email");
 const byUsername = require("./by-username");
 const updatePasswordByEmail = require("./update-password-by-email");
 const updateEmailById = require("./update-email-by-id");
+const updateUserById = require("./update-user-by-id");
 
 module.exports = {
     register,
@@ -12,4 +13,5 @@ module.exports = {
     byUsername,
     updatePasswordByEmail,
     updateEmailById,
+    updateUserById,
 }
