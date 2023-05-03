@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
 const services = require("../../services");
-const { passwordVerify, createToken, passwordHash } = require("../../../utils");
+const { passwordVerify, createToken, tokenEncrypt } = require("../../../utils");
 
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -28,7 +28,7 @@ const login = asyncHandler(async (req, res) => {
 
     const token = createToken(tokenData);
 
-    const tokenHash = passwordHash(token);
+    const tokenHash = tokenEncrypt(token);
 
     res.send({
         token: tokenHash
