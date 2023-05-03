@@ -1,17 +1,38 @@
-const validations = require("../../validations");
+const asyncHandler = require("express-async-handler");
 
-const login = (req, res) => {
+const services = require("../../services");
+const { passwordVerify, createToken, passwordHash } = require("../../../utils");
+
+const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    const result = validations.login(email, password);
+    const result = await services.byEmail(email);
 
-    if (typeof result === "string") {
-        // The error message in result.
-        res.send({ message: result });
+    if (result.length === 0) {
+        res.send({ message: "Invalid email address!" });
         return;
     }
 
-    res.send({ email, password });
-}
+    const isValid = passwordVerify(password, result[0].password);
+
+    if (!isValid) {
+        res.send({ message: "Invalid password!" });
+        return;
+    }
+
+    const tokenData = {
+        first_name: result[0].first_name,
+        last_name: result[0].last_name,
+        email: result[0].email,
+    }
+
+    const token = createToken(tokenData);
+
+    const tokenHash = passwordHash(token);
+
+    res.send({
+        token: tokenHash
+    });
+});
 
 module.exports = login;
