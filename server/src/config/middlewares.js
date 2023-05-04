@@ -20,6 +20,23 @@ const isAuth = (req, res, next) => {
     next();
 }
 
+const isAdmin = (req, res, next) => {
+    const user = req.user;
+
+    if (!user) {
+        res.send({ message: "Invalid token!" });
+        return;
+    }
+
+    if (user.role_as !== "admin") {
+        res.send({ message: "You are not admin!" });
+        return;
+    }
+
+    next();
+}
+
 module.exports = {
     isAuth,
+    isAdmin,
 }
