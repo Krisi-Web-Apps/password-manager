@@ -19,7 +19,12 @@ const get = {
     const sql = `SELECT id, first_name, last_name, username, email, role_as, created_at FROM users WHERE username = '${username}';`;
     const result = await executeQuery(sql, connection);
     return result;
-  }
+  },
+  byId: async (id) => {
+    const sql = `SELECT first_name, last_name, username, email, role_as, created_at FROM users WHERE id = ${id}`;
+    const result = await executeQuery(sql, connection);
+    return result;
+  },
 }
 
 module.exports = {
