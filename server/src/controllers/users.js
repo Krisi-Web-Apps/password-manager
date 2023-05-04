@@ -128,6 +128,10 @@ const get = {
 
     res.send(userResult[0]);
   }),
+  items: asyncHandler(async (req, res) => {
+    const usersResult = await users.get.items();
+    res.send(usersResult);
+  }),
 };
 
 module.exports = {

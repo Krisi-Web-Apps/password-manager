@@ -30,6 +30,11 @@ const get = {
     const result = await executeQuery(sql, connection);
     return result;
   },
+  items: async () => {
+    const sql = `SELECT first_name, last_name, username, email, role_as, created_at FROM users;`;
+    const result = await executeQuery(sql, connection);
+    return result;
+  }
 }
 
 module.exports = {
