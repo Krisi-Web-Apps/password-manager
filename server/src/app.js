@@ -17,6 +17,11 @@ const { commonRouter, usersRouter } = require("@src/routers");
 app.use("/", commonRouter);
 app.use("/users", usersRouter);
 
+// custom middlewares
+const { errorHandler } = require("@src/config/middlewares");
+
+app.use(errorHandler);
+
 const PORT = process.env.PORT;
 const env = process.env.NODE_ENV;
 
