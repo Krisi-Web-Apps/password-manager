@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const { isAuth } = require("../../config/middlewares");
+const { isAuth, isAdmin } = require("../../config/middlewares");
 
-router.get("/", isAuth, require("../controllers").fetchItems);
+router.get("/", isAuth, isAdmin, require("../controllers").fetchItems);
+router.get("/:id", isAuth, require("../controllers").fetchItemById);
 
 router.post("/login", require("../controllers").login);
 router.post("/register", require("../controllers").register);
