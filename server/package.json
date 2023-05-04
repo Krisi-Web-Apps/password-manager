@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "db": "node src/config/local/create-database.js"
+    "db": "node src/config/local/create-database.js",
+    "tables": "node src/config/local/create-tables.js"
   },
   "keywords": [],
   "author": "",
