@@ -7,6 +7,11 @@ const post = {
     const result = await executeQuery(sql, connection);
     return result;
   },
+  save: async (id, first_name, last_name) => {
+    const sql = `UPDATE users SET first_name='${first_name}', last_name='${last_name}' WHERE id = ${id}`;
+    const result = await executeQuery(sql, connection);
+    return result;
+  }
 };
 
 const get = {

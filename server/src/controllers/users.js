@@ -78,6 +78,19 @@ const post = {
 
     res.send({ token });
   }),
+  save: asyncHandler(async (req, res) => {
+    const { first_name, last_name } = req.body;
+    const id = req.user.id;
+
+    if (!parseInt(id)) {
+      res.send({ message: "Invalid id!" });
+      return;
+    }
+
+    const userResult = await users.post.save(id, first_name, last_name);
+
+    res.send({ affected_rows: userResult.affectedRows });
+  }),
 };
 
 const get = {
@@ -115,7 +128,7 @@ const get = {
 
     res.send(userResult[0]);
   }),
-}
+};
 
 module.exports = {
   post,
