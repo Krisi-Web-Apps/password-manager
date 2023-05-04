@@ -5,6 +5,7 @@ const byUsername = require("./by-username");
 const updatePasswordByEmail = require("./update-password-by-email");
 const updateEmailById = require("./update-email-by-id");
 const updateUserById = require("./update-user-by-id");
+const fetchItems = require("./fetch-items");
 
 module.exports = {
     register,
@@ -14,4 +15,5 @@ module.exports = {
     updatePasswordByEmail,
     updateEmailById,
     updateUserById,
+    fetchItems,
 }
