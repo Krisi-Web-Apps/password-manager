@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
 const { users } = require("@src/services");
-const registerValidations = require("@src/validations/registerValidations");
+const usersValidations = require("@src/validations/users");
 const loginValidations = require("@src/validations/loginValidations");
 const { bcrypt, jwt } = require("@src/utils");
 
@@ -10,7 +10,7 @@ const post = {
     const { first_name, last_name, username, email, password, cpassword } =
       req.body;
 
-    const validationsResult = registerValidations(
+    const validationsResult = usersValidations.register(
       first_name,
       last_name,
       username,
@@ -53,7 +53,7 @@ const post = {
   login: asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    const validationsResult = loginValidations(email, password);
+    const validationsResult = usersValidations.login(email, password);
 
     if (typeof validationsResult === "string") {
       res.send({ message: validationsResult });
@@ -90,6 +90,31 @@ const post = {
     const userResult = await users.post.save(id, first_name, last_name);
 
     res.send({ affected_rows: userResult.affectedRows });
+  }),
+  changeEmail: asyncHandler(async (req, res) => {
+    const { id } = req.user;
+    const { new_email, cnew_email } = req.body;
+
+    const validationsResult = usersValidations.changeEmail(
+      new_email,
+      cnew_email
+    );
+
+    if (typeof validationsResult === "string") {
+      res.send({ message: validationsResult });
+      return;
+    }
+
+    const userResult = await users.get.byId(id);
+
+    if (userResult.length === 0) {
+      res.send({ message: "Invalid email address!" });
+      return;
+    }
+
+    const savedUserResult = await users.post.changeEmail(id, new_email);
+
+    res.send({ affected_rows: savedUserResult.affectedRows });
   }),
 };
 

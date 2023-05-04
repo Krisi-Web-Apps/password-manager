@@ -11,7 +11,12 @@ const post = {
     const sql = `UPDATE users SET first_name='${first_name}', last_name='${last_name}' WHERE id = ${id}`;
     const result = await executeQuery(sql, connection);
     return result;
-  }
+  },
+  changeEmail: async (id, new_email) => {
+    const sql = `UPDATE users SET email='${new_email}' WHERE id = ${id};`;
+    const result = await executeQuery(sql, connection);
+    return result;
+  },
 };
 
 const get = {
