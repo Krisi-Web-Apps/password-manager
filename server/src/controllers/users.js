@@ -98,6 +98,23 @@ const get = {
 
     res.send(userResult[0]);
   }),
+  user: asyncHandler(async (req, res) => {
+    const id = req.user.id;
+
+    if (!parseInt(id)) {
+      res.send({ message: "Invalid id!" });
+      return;
+    }
+
+    const userResult = await users.get.byId(id);
+
+    if (userResult.length === 0) {
+      res.send({ message: "Invalid id!" });
+      return;
+    }
+
+    res.send(userResult[0]);
+  }),
 }
 
 module.exports = {
