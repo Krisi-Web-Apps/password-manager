@@ -198,6 +198,21 @@ const get = {
     const usersResult = await users.get.items();
     res.send(usersResult);
   }),
+  searchBy: asyncHandler(async (req, res) => {
+    const query = req.query;
+
+    const column = Object.keys(query)[0];
+    const term = Object.values(query)[0];
+
+    if (column === "password" || column === "created_at") {
+      res.send({ message: "Invalid column!" });
+      return;
+    }
+
+    const usersResult = await users.get.searchBy(column, term);
+
+    res.send(usersResult);
+  })
 };
 
 module.exports = {

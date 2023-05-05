@@ -49,6 +49,11 @@ const get = {
     const sql = `SELECT password FROM users WHERE id = ${id}`;
     const result = await executeQuery(sql, connection);
     return result;
+  },
+  searchBy: async (column, term) => {
+    const sql = `SELECT first_name, last_name, username, email, role_as, created_at FROM users WHERE ${column} LIKE '%${term}%';`;
+    const result = await executeQuery(sql, connection);
+    return result;
   }
 }
 
