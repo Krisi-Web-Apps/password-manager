@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 
 const { users } = require("@src/services");
 const usersValidations = require("@src/validations/users");
-const { bcrypt, jwt } = require("@src/utils");
+const { bcrypt, jwt, cryptojs } = require("@src/utils");
 
 const post = {
   register: asyncHandler(async (req, res) => {
@@ -84,7 +84,9 @@ const post = {
       role_as: userExistsResult[0].role_as,
     });
 
-    res.send({ token });
+    const encryptedToken = cryptojs.encryptData(token);
+
+    res.send({ encryptedToken });
   }),
   save: asyncHandler(async (req, res) => {
     const { first_name, last_name } = req.body;

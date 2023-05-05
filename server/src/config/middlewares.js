@@ -1,4 +1,4 @@
-const jwt = require("@src/utils/jwt/jwt");
+const { jwt, cryptojs } = require("@src/utils");
 
 const isAuth = (req, res, next) => {
   const token = req.headers.authorization;
@@ -9,7 +9,9 @@ const isAuth = (req, res, next) => {
   }
 
   const splittedToken = token.split(" ")[1];
-  const decodedData = jwt.verifyToken(splittedToken);
+
+  const decryptedToken = cryptojs.decryptData(splittedToken);
+  const decodedData = jwt.verifyToken(decryptedToken);
 
   if (!decodedData) {
     res.send({ message: "Invalid token!" });
