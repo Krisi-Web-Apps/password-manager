@@ -11,5 +11,6 @@ router.post("/", isAuth, usersController.post.save);
 router.post("/register", usersController.post.register);
 router.post("/login", usersController.post.login);
 router.post("/change-email", isAuth, usersController.post.changeEmail);
+router.post("/change-password", isAuth, usersController.post.changePassword);
 
 module.exports = router;

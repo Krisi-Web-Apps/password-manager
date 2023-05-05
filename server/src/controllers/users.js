@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 
 const { users } = require("@src/services");
 const usersValidations = require("@src/validations/users");
-const loginValidations = require("@src/validations/loginValidations");
 const { bcrypt, jwt } = require("@src/utils");
 
 const post = {
@@ -62,8 +61,17 @@ const post = {
 
     const userExistsResult = await users.get.byEmail(email);
 
+    const userPasswordResult = await users.get.password(userExistsResult[0].id);
+
     if (userExistsResult.length === 0) {
-      res.send({ message: "Invalid email address!" });
+      res.send({ message: "Invalid email or password!" });
+      return;
+    }
+
+    const isValid = bcrypt.verify(password, userPasswordResult[0].password);
+
+    if (!isValid) {
+      res.send({ message: "Invalid email or password!" });
       return;
     }
 
@@ -115,6 +123,37 @@ const post = {
     const savedUserResult = await users.post.changeEmail(id, new_email);
 
     res.send({ affected_rows: savedUserResult.affectedRows });
+  }),
+  changePassword: asyncHandler(async (req, res) => {
+    const user = req.user;
+    const { old_password, new_password, cnew_password } = req.body;
+
+    const validationsResult = usersValidations.changePassword(new_password, cnew_password);
+
+    if (typeof validationsResult === "string") {
+      res.send({ message: validationsResult });
+      return;
+    }
+
+    const userResult = await users.get.password(user.id);
+
+    if (userResult.length === 0) {
+      res.send({ message: "Invalid id!" });
+      return;
+    }
+
+    const isValid = bcrypt.verify(old_password, userResult[0].password);
+
+    if (!isValid) {
+      res.send({ message: "Invalid current password!" });
+      return;
+    }
+
+    const hash = bcrypt.hash(new_password);
+
+    const savedUserPassword = await users.post.changePassword(user.id, hash);
+
+    res.send({ affected_rows: savedUserPassword.affectedRows });
   }),
 };
 

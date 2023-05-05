@@ -17,6 +17,11 @@ const post = {
     const result = await executeQuery(sql, connection);
     return result;
   },
+  changePassword: async (id, new_password) => {
+    const sql = `UPDATE users SET password='${new_password}' WHERE id = ${id};`;
+    const result = await executeQuery(sql, connection);
+    return result;
+  }
 };
 
 const get = {
@@ -37,6 +42,11 @@ const get = {
   },
   items: async () => {
     const sql = `SELECT first_name, last_name, username, email, role_as, created_at FROM users;`;
+    const result = await executeQuery(sql, connection);
+    return result;
+  },
+  password: async (id) => {
+    const sql = `SELECT password FROM users WHERE id = ${id}`;
     const result = await executeQuery(sql, connection);
     return result;
   }

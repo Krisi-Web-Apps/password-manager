@@ -20,8 +20,13 @@ const changeEmail = (new_email, cnew_email) => {
     else true;
 }
 
+const changePassword = (new_password, cnew_password) => {
+    if (new_password !== cnew_password) return "Password's don't match!";
+}
+
 module.exports = {
     register,
     login,
     changeEmail,
+    changePassword,
 };
