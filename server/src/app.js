@@ -12,10 +12,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routers
-const { commonRouter, usersRouter } = require("@src/routers");
+const { commonRouter, usersRouter, passwordsRouter } = require("@src/routers");
 
 app.use("/", commonRouter);
 app.use("/users", usersRouter);
+app.use("/passwords", passwordsRouter);
 
 // custom middlewares
 const { errorHandler } = require("@src/config/middlewares");
