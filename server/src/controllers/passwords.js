@@ -38,6 +38,26 @@ const post = {
   }),
 };
 
+const get = {
+  items: asyncHandler(async (req, res) => {
+    const passwordsResult = await passwords.get.items();
+    res.send(passwordsResult);
+  }),
+  byLoggedInUser: asyncHandler(async (req, res) => {
+    const user = req.user;
+
+    const passwordsResult = await passwords.get.itemsByUserId(user.id);
+
+    passwordsResult.forEach(passwordItem => {
+      const decryptedPassword = cryptojs.decryptData(passwordItem.password);
+      passwordItem.password = decryptedPassword;
+    });
+
+    res.send(passwordsResult);
+  }),
+}
+
 module.exports = {
   post,
+  get,
 };

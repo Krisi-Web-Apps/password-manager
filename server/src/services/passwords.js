@@ -14,6 +14,16 @@ const get = {
         const sql = `SELECT * FROM passwords WHERE id = ${id}`;
         const result = await executeQuery(sql, connection);
         return result;
+    },
+    items: async () => {
+        const sql = `SELECT * FROM passwords;`;
+        const result = await executeQuery(sql, connection);
+        return result;
+    },
+    itemsByUserId: async (userId) => {
+        const sql = `SELECT * FROM passwords WHERE user_id = ${userId};`;
+        const result = await executeQuery(sql, connection);
+        return result;
     }
 }
 
