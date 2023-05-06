@@ -1,11 +1,14 @@
 <template>
-  <div class="pt-5">
-    <h1 class="text-4xl text-center">Мениджър на пароли</h1>
-  </div>
+  <navigation-bar />
 </template>
 
 <script>
+import NavigationBar from "@src/components/navigation-bar/NavigationBar.vue";
+
 export default {
   name: "AppView",
+  components: {
+    NavigationBar,
+  },
 };
 </script>
