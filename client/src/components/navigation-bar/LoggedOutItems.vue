@@ -9,22 +9,21 @@
 
 <script>
 // stores
+import { useEnvStore } from '@src/stores/env';
 import { useUserStore } from '@src/stores/user';
 
 export default {
   name: "LoggedOutItems",
   setup() {
     const user = useUserStore();
+    const env = useEnvStore();
     const functions = {
       open: {
         openLoginDialog: () => {
-          user.isLoggedIn = true;
-          // TODO:
-          console.log("This is login dialog!");
+          env.dialogs.auth.login = true;
         },
         openRegisterDialog: () => {
-          // TODO:
-          console.log("This is register dialog!");
+          env.dialogs.auth.register = true;
         },
       },
       handleClick: ({ func }) => {
