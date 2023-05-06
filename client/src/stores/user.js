@@ -29,8 +29,9 @@ export const useUserStore = defineStore("user", {
         this.afterLogin(res.data.encryptedToken);
         this.loading = false;
       }).catch(err => {
-        if (err.response.data.message === "Invalid email!") this.error = "Невалиден имейл или парола.";
-        if (err.response.data.message === "Invalid password!") this.error = "Невалиден имейл или парола.";
+        if (err.message === "Invalid email!") this.error = "Невалиден имейл или парола";
+        if (err.message === "Invalid password!") this.error = "Невалиден имейл или парола.";
+        if (err.message === "Invalid email address!") this.error = "Невалиден имейл или парола.";
       })
       .finally(() => this.loading = false);
     },

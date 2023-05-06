@@ -61,6 +61,10 @@ const post = {
 
     const userExistsResult = await users.get.byEmail(email);
 
+    if (userExistsResult.length === 0) {
+      res.status(400).send({ message: "Invalid email address!" });
+    }
+
     const userPasswordResult = await users.get.password(userExistsResult[0].id);
 
     if (userExistsResult.length === 0) {
