@@ -19,21 +19,21 @@ const post = {
     );
 
     if (typeof validationsResult === "string") {
-      res.status(400).send({ message: validationsResult });
+      res.send({ message: validationsResult });
       return;
     }
 
     const userUsernameResult = await users.get.byUsername(email);
 
     if (userUsernameResult.length > 0) {
-      res.status(400).send({ message: "Dublicate username!" });
+      res.send({ message: "Dublicate username!" });
       return;
     }
 
     const userEmailResult = await users.get.byEmail(email);
 
     if (userEmailResult.length > 0) {
-      res.status(400).send({ message: "Dublicate email address!" });
+      res.send({ message: "Dublicate email address!" });
       return;
     }
 
@@ -55,7 +55,7 @@ const post = {
     const validationsResult = usersValidations.login(email, password);
 
     if (typeof validationsResult === "string") {
-      res.status(400).send({ message: validationsResult });
+      res.send({ message: validationsResult });
       return;
     }
 
@@ -64,14 +64,14 @@ const post = {
     const userPasswordResult = await users.get.password(userExistsResult[0].id);
 
     if (userExistsResult.length === 0) {
-      res.status(400).send({ message: "Invalid email or password!" });
+      res.send({ message: "Invalid email or password!" });
       return;
     }
 
     const isValid = bcrypt.verify(password, userPasswordResult[0].password);
 
     if (!isValid) {
-      res.status(400).send({ message: "Invalid email or password!" });
+      res.send({ message: "Invalid email or password!" });
       return;
     }
 
@@ -93,7 +93,7 @@ const post = {
     const id = req.user.id;
 
     if (!parseInt(id)) {
-      res.status(400).send({ message: "Invalid id!" });
+      res.send({ message: "Invalid id!" });
       return;
     }
 
@@ -111,14 +111,14 @@ const post = {
     );
 
     if (typeof validationsResult === "string") {
-      res.status(400).send({ message: validationsResult });
+      res.send({ message: validationsResult });
       return;
     }
 
     const userResult = await users.get.byId(id);
 
     if (userResult.length === 0) {
-      res.status(400).send({ message: "Invalid email address!" });
+      res.send({ message: "Invalid email address!" });
       return;
     }
 
@@ -133,21 +133,21 @@ const post = {
     const validationsResult = usersValidations.changePassword(new_password, cnew_password);
 
     if (typeof validationsResult === "string") {
-      res.status(400).send({ message: validationsResult });
+      res.send({ message: validationsResult });
       return;
     }
 
     const userResult = await users.get.password(user.id);
 
     if (userResult.length === 0) {
-      res.status(400).send({ message: "Invalid id!" });
+      res.send({ message: "Invalid id!" });
       return;
     }
 
     const isValid = bcrypt.verify(old_password, userResult[0].password);
 
     if (!isValid) {
-      res.status(400).send({ message: "Invalid current password!" });
+      res.send({ message: "Invalid current password!" });
       return;
     }
 
@@ -164,14 +164,14 @@ const get = {
     const id = req.params.id;
 
     if (!parseInt(id)) {
-      res.status(400).send({ message: "Invalid id!" });
+      res.send({ message: "Invalid id!" });
       return;
     }
 
     const userResult = await users.get.byId(id);
 
     if (userResult.length === 0) {
-      res.status(400).send({ message: "Invalid id!" });
+      res.send({ message: "Invalid id!" });
       return;
     }
 
@@ -181,14 +181,14 @@ const get = {
     const id = req.user.id;
 
     if (!parseInt(id)) {
-      res.status(400).send({ message: "Invalid id!" });
+      res.send({ message: "Invalid id!" });
       return;
     }
 
     const userResult = await users.get.byId(id);
 
     if (userResult.length === 0) {
-      res.status(400).send({ message: "Invalid id!" });
+      res.send({ message: "Invalid id!" });
       return;
     }
 
@@ -205,7 +205,7 @@ const get = {
     const term = Object.values(query)[0];
 
     if (column === "password" || column === "created_at") {
-      res.status(400).send({ message: "Invalid column!" });
+      res.send({ message: "Invalid column!" });
       return;
     }
 
