@@ -29,8 +29,10 @@ export const useUserStore = defineStore("user", {
         this.afterLogin(res.data.encryptedToken);
         this.loading = false;
       }).catch(err => {
-        this.error = err.message;
-      });
+        if (err.response.data.message === "Invalid email!") this.error = "Невалиден имейл или парола.";
+        if (err.response.data.message === "Invalid password!") this.error = "Невалиден имейл или парола.";
+      })
+      .finally(() => this.loading = false);
     },
     afterLogin(token) {
       const env = useEnvStore();

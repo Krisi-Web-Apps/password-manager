@@ -7,7 +7,7 @@ body {
 }
 
 button {
-    @apply outline-none bg-gray-200 border border-gray-300 focus:border-gray-400;
+    @apply outline-none bg-gray-200 border border-gray-300 focus:border-gray-400 disabled:bg-gray-400;
 }
 
 .button {
@@ -15,5 +15,5 @@ button {
 }
 
 input {
-    @apply outline-none focus:border-gray-400;
+    @apply outline-none focus:border-gray-400 disabled:bg-gray-400;
 }

@@ -14,6 +14,7 @@
             id="email"
             class="w-full py-2 px-4 mt-2 rounded border"
             v-model="user.credentials.email"
+            :disabled="user.loading"
           />
         </div>
         <div class="mb-5">
@@ -24,9 +25,12 @@
             id="password"
             class="w-full py-2 px-4 mt-2 rounded border"
             v-model="user.credentials.password"
+            :disabled="user.loading"
           />
         </div>
-        <button type="submit" class="button">Вход в системата</button>
+        <button type="submit" class="button" :disabled="user.loading">
+          Вход в системата
+        </button>
       </form>
     </template>
   </simple-dialog>
