@@ -1,7 +1,7 @@
 <template>
   <li>
     <button
-      @click="() => handleClick({ func: 'openPasswordsDialog' })"
+      @click="() => handleClick({ func: 'passwordsView' })"
       class="button"
     >
       Пароли
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+
 // stores
 import { useEnvStore } from "@src/stores/env";
 import { usePasswordStore } from "@src/stores/password";
@@ -47,12 +49,12 @@ export default {
     const user = useUserStore();
     const env = useEnvStore();
     const password = usePasswordStore();
+    const router = useRouter();
 
     const functions = {
       open: {
-        openPasswordsDialog: () => {
-          password.item = {};
-          env.dialogs.passwords.passwordsList = true;
+        passwordsView: () => {
+          router.push("/passwords");
         },
         openUsersDialog: () => {
           // TODO:
@@ -74,5 +76,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
