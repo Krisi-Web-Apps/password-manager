@@ -4,7 +4,7 @@ const isAuth = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    res.send({ message: "Invalid token!" });
+    res.status(400).send({ message: "Invalid token!" });
     return;
   }
 
@@ -14,7 +14,7 @@ const isAuth = (req, res, next) => {
   const decodedData = jwt.verifyToken(decryptedToken);
 
   if (!decodedData) {
-    res.send({ message: "Invalid token!" });
+    res.status(400).send({ message: "Invalid token!" });
     return;
   }
 
@@ -26,12 +26,12 @@ const isAdmin = (req, res, next) => {
   const user = req.user;
 
   if (!user) {
-    res.send({ message: "Invalid token!" });
+    res.status(400).send({ message: "Invalid token!" });
     return;
   }
 
   if (user.role_as !== "admin") {
-    res.send({ message: "You are not admin!" });
+    res.status(400).send({ message: "You are not admin!" });
     return;
   }
 
@@ -40,7 +40,7 @@ const isAdmin = (req, res, next) => {
 
 const errorHandler = (err, req, res, next) => {
   if (err) {
-    res.send({
+    res.status(400).send({
       message: err.message,
       stack: process.env.NODE_ENV === "development" ? err.stack : null,
     });

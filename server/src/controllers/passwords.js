@@ -12,7 +12,7 @@ const post = {
     const result = passwordsValidations.insert(title, password);
 
     if (typeof result === "string") {
-      res.send({ message: result });
+      res.status(400).send({ message: result });
       return;
     }
 
