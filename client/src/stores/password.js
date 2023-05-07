@@ -25,6 +25,7 @@ export const usePasswordStore = defineStore("password", {
           app.$toast.success("Паролата е запазена!");
           const env = useEnvStore();
           env.dialogs.passwords.savePassword = false;
+          this.getItems();
         })
         .catch((err) => {
           if (err.message === "Title is required!") {

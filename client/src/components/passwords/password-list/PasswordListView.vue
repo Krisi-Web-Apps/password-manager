@@ -8,7 +8,8 @@
       <div class="flex justify-between items-center">
         <div>
           <div>{{ item.title }}</div>
-          <div class="text-gray-400">{{ item.password }}</div>
+          <div class="text-gray-400 font-bold">{{ item.password }}</div>
+          <div>{{ item.desc }}</div>
         </div>
         <div>
           <button class="button">Опции</button>
@@ -37,5 +38,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

@@ -1,7 +1,18 @@
 <template>
   <div class="container mx-auto">
-    <div class="w-full max-h-[660px] bg-white text-black rounded border py-5 px-5 mt-5 overflow-y-scroll">
-      <h1 class="mb-5 text-2xl">Пароли</h1>
+    <div
+      class="w-full max-h-[660px] bg-white text-black rounded border py-5 px-5 mt-5 overflow-y-scroll"
+    >
+      <div class="flex justify-between items-center">
+        <h1 class="mb-5 text-2xl">Пароли</h1>
+        <div class="flex gap-5">
+          <button @click="handleRefresh" class="button">Опресняване</button>
+          <button @click="handleOpenSaveDialog" class="button">
+            Нова Парола
+          </button>
+        </div>
+      </div>
+      <div v-if="password.loading" class="mb-5 text-center">Зареждане...</div>
       <password-list-view />
       <save-password-view v-if="env.dialogs.passwords.savePassword" />
     </div>
@@ -11,6 +22,7 @@
 <script>
 // stores
 import { useEnvStore } from "@src/stores/env";
+import { usePasswordStore } from "@src/stores/password";
 
 // views
 import SavePasswordView from "@src/components/passwords/save-password/SavePasswordView.vue";
@@ -25,7 +37,19 @@ export default {
   },
   setup() {
     const env = useEnvStore();
-    return { env };
+    const password = usePasswordStore();
+
+    const functions = {
+      handleRefresh: () => {
+        password.getItems();
+      },
+      handleOpenSaveDialog: () => {
+        password.item = {};
+        env.dialogs.passwords.savePassword = true;
+      },
+    };
+
+    return { env, password, ...functions };
   },
 };
 </script>
