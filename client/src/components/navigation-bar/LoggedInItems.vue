@@ -55,9 +55,7 @@ export default {
           console.log("This is profile dialog!");
         },
         logout: () => {
-          user.isLoggedIn = false;
-          // TODO:
-          console.log("This is logout!");
+          user.logout();
         },
       },
       handleClick: ({ func }) => {

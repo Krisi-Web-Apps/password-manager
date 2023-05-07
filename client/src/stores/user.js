@@ -26,7 +26,7 @@ export const useUserStore = defineStore("user", {
     form_ref: "",
   }),
   actions: {
-    async login() {
+    login() {
       this.loading = true;
       api
         .post(`${this.url}/login`, this.credentials)
@@ -77,5 +77,11 @@ export const useUserStore = defineStore("user", {
       api.defaults.headers.authorization = token;
       localStorage.setItem("token", token);
     },
+    logout() {
+      localStorage.removeItem("token");
+      api.defaults.headers.authorization = null;
+      this.isLoggedIn = false;
+      app.$toast.success("Излязохте от системата!");
+    }
   },
 });
