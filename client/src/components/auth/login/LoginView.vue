@@ -31,6 +31,11 @@
         <button type="submit" class="button" :disabled="user.loading">
           Вход в системата
         </button>
+        <div class="mt-5">
+          <button @click="handleOpenRegister" class="px-2 rounded">
+            Още нямате профил?
+          </button>
+        </div>
       </form>
     </template>
   </simple-dialog>
@@ -56,6 +61,10 @@ export default {
     const functions = {
       handleLogin: () => {
         user.login();
+      },
+      handleOpenRegister: () => {
+        env.dialogs.auth.register = true;
+        env.dialogs.auth.login = false;
       },
       handleClose: () => {
         env.dialogs.auth.login = false;
