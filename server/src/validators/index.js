@@ -19,14 +19,13 @@ const username = (username) => {
   return usernameRegex.test(username);
 };
 
-const requireOnlyLetters = (text) => {
-  const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-  return format.test(text);
-};
+function onlyLettersAndSpaces(input) {
+  return /^[A-Za-z\s]+$/.test(input);
+}
 
 module.exports = {
   email,
   password,
   username,
-  requireOnlyLetters,
+  onlyLettersAndSpaces,
 };
