@@ -5,7 +5,7 @@ export const useEnvStore = defineStore("env", {
         time_ms: 0.00,
         dialogs: {
             auth: {
-                login: true,
+                login: false,
                 register: false,
             }
         }

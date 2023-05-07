@@ -31,8 +31,8 @@ export const useUserStore = defineStore("user", {
       api
         .post(`${this.url}/login`, this.credentials)
         .then((res) => {
-          this.afterLogin(res.data.encryptedToken);
-          this.loading = false;
+          this.setToken(res.data.encryptedToken);
+          this.getUser();
         })
         .catch((err) => {
           if (
@@ -59,22 +59,29 @@ export const useUserStore = defineStore("user", {
         })
         .catch((err) => {
           // if (err.message === "")
-          if (err.message === "Dublicate email address!") app.$toast.error("Този имейл вече съществува!");
-          if (err.message === "Password's dpn't match!") app.$toast.error("Паролите не съвпадат!");
-          if (err.message === "First and last name are required!") app.$toast.error("Малко име и фамилия са задължителни!");
-          if (err.message === "Invalid email address!") app.$toast.error("Въведете валиден имейл адрес!");
-          if (err.message === "Invalid password!") app.$toast.error("Слаба парола!");
+          if (err.message === "Dublicate email address!")
+            app.$toast.error("Този имейл вече съществува!");
+          if (err.message === "Password's dpn't match!")
+            app.$toast.error("Паролите не съвпадат!");
+          if (err.message === "First and last name are required!")
+            app.$toast.error("Малко име и фамилия са задължителни!");
+          if (err.message === "Invalid email address!")
+            app.$toast.error("Въведете валиден имейл адрес!");
+          if (err.message === "Invalid password!")
+            app.$toast.error("Слаба парола!");
         })
         .finally(() => (this.loading = false));
     },
-    afterLogin(token) {
+    afterLogin() {
       app.$toast.success("Влязохте в системата!");
       const env = useEnvStore();
       env.dialogs.auth.login = false;
       env.dialogs.auth.register = false;
       this.isLoggedIn = true;
       this.loading = false;
-      api.defaults.headers.authorization = token;
+    },
+    setToken(token) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
       localStorage.setItem("token", token);
     },
     logout() {
@@ -82,6 +89,21 @@ export const useUserStore = defineStore("user", {
       api.defaults.headers.authorization = null;
       this.isLoggedIn = false;
       app.$toast.success("Излязохте от системата!");
-    }
+      const env = useEnvStore();
+      env.dialogs.auth.login = true;
+    },
+    getUser() {
+      this.loading = true;
+      api
+        .get(this.url)
+        .then((res) => {
+          this.me = res.data;
+          this.afterLogin();
+        })
+        .catch((err) => {
+          this.logout();
+        })
+        .finally(() => (this.loading = false));
+    },
   },
 });

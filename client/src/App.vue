@@ -1,4 +1,5 @@
 <template>
+  <initial-logic />
   <div class="fixed top-0 left-0 mt-2 ml-2">
     Time: {{ env.time_ms.toFixed(0) }} ms.
   </div>
@@ -17,6 +18,7 @@ import LoginView from "@src/components/auth/login/LoginView.vue";
 import RegisterView from "@src/components/auth/register/RegisterView.vue";
 
 // components
+import InitialLogic from "@src/components/auth/initial-login/InitialLogic.vue";
 import NavigationBar from "@src/components/navigation-bar/NavigationBar.vue";
 
 export default {
@@ -27,6 +29,7 @@ export default {
     RegisterView,
 
     // components
+    InitialLogic,
     NavigationBar,
   },
   setup() {

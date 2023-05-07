@@ -1,5 +1,5 @@
 <template>
-  <simple-dialog @close="handleClose" :dialogRef="dialogRef">
+  <simple-dialog @close="handleClose">
     <template v-slot:header>Register</template>
     <template v-slot:body>
       <div class="px-5">
@@ -61,11 +61,11 @@
             />
           </div>
           <div class="mb-5">
-            <label for="password">Повторете Паролата</label>
+            <label for="cpassword">Повторете Паролата</label>
             <input
               type="password"
               placeholder="Въведете паролата отново..."
-              id="password"
+              id="cpassword"
               class="w-full py-2 px-4 mt-2 rounded border"
               v-model="user.credentials.cpassword"
               :disabled="user.loading"
