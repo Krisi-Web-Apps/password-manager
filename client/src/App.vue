@@ -7,15 +7,17 @@
   <!-- login & register -->
   <login-view v-if="env.dialogs.auth.login" />
   <register-view v-if="env.dialogs.auth.register" />
+  <save-password-view v-if="env.dialogs.passwords.savePassword" />
 </template>
 
 <script>
 // stores
 import { useEnvStore } from "@src/stores/env";
 
-// dialogs
+// views
 import LoginView from "@src/components/auth/login/LoginView.vue";
 import RegisterView from "@src/components/auth/register/RegisterView.vue";
+import SavePasswordView from "@src/components/passwords/save-password/SavePasswordView.vue";
 
 // components
 import InitialLogic from "@src/components/auth/initial-login/InitialLogic.vue";
@@ -27,6 +29,7 @@ export default {
     // views
     LoginView,
     RegisterView,
+    SavePasswordView,
 
     // components
     InitialLogic,

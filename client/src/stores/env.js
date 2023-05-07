@@ -7,6 +7,9 @@ export const useEnvStore = defineStore("env", {
             auth: {
                 login: false,
                 register: false,
+            },
+            passwords: {
+                savePassword: false,
             }
         }
     })

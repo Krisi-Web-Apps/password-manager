@@ -12,7 +12,6 @@ export const app = createApp(App)
     .use(ToastPlugin, {
         position: 'bottom-right',
         pouseOnHover: true,
-        onDismiss: true,
     })
     .use(pinia)
     .mount("#app");

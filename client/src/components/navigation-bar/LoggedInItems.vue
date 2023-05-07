@@ -8,7 +8,10 @@
     </button>
   </li>
   <li v-if="user.me.role_as === 'admin'">
-    <button @click="() => handleClick({ func: 'openUsersDialog' })" class="button">
+    <button
+      @click="() => handleClick({ func: 'openUsersDialog' })"
+      class="button"
+    >
       Потребители
     </button>
   </li>
@@ -29,6 +32,8 @@
 
 <script>
 // stores
+import { useEnvStore } from "@src/stores/env";
+import { usePasswordStore } from "@src/stores/password";
 import { useUserStore } from "@src/stores/user";
 
 export default {
@@ -40,11 +45,14 @@ export default {
   },
   setup() {
     const user = useUserStore();
+    const env = useEnvStore();
+    const password = usePasswordStore();
+
     const functions = {
       open: {
         openPasswordsDialog: () => {
-          // TODO:
-          console.log("This is passwords dialog!");
+          password.item = {};
+          env.dialogs.passwords.savePassword = true;
         },
         openUsersDialog: () => {
           // TODO:
