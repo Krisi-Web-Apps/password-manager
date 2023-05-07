@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { useEnvStore } from "@src/stores/env";
+import { useUserStore } from "@src/stores/user";
 
 const api = axios.create({ baseURL: import.meta.env.VITE_BASE_API_URL });
 
@@ -18,6 +19,13 @@ api.interceptors.response.use(
   },
   (err) => {
     const env = useEnvStore();
+    if (
+      err.response.data.message === "jwt expired" ||
+      err.response.data.message === "Invalid token!"
+    ) {
+      const user = useUserStore();
+      user.logout();
+    }
     env.time_ms = performance.now() - start;
     if (err.response.data.message) {
       throw new Error(err.response.data.message);

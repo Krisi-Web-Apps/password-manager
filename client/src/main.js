@@ -1,9 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import ToastPlugin from "vue-toast-notification";
-import { createRouter, createWebHistory } from "vue-router";
-
-import { routes } from "@src/routes";
+import router from "@src/router";
 
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -11,11 +9,6 @@ import "./style.css";
 import App from "@src/App.vue";
 
 const pinia = createPinia();
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
-});
 
 export const app = createApp(App)
   .use(router)

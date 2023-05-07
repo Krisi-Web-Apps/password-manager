@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul v-if="password.items.length > 0">
     <li
       v-for="(item, index) in password.items"
       :key="item.id"
@@ -17,6 +17,7 @@
       </div>
     </li>
   </ul>
+  <div v-else>Все още нямате въведени пароли.</div>
 </template>
 
 <script>

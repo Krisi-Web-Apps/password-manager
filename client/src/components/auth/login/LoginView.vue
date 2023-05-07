@@ -1,5 +1,5 @@
 <template>
-  <simple-dialog @close="handleClose">
+  <simple-dialog @close="handleClose" class="z-40">
     <template v-slot:header>Login</template>
     <template v-slot:body>
       <form @submit.prevent="handleLogin" class="px-5">
@@ -18,11 +18,11 @@
           />
         </div>
         <div class="mb-5">
-          <label for="password">Парола</label>
+          <label for="user_password">Парола</label>
           <input
             type="password"
             placeholder="Вашата парола..."
-            id="password"
+            id="user_password"
             class="w-full py-2 px-4 mt-2 rounded border"
             v-model="user.credentials.password"
             :disabled="user.loading"
