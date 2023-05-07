@@ -52,7 +52,7 @@ export default {
       open: {
         openPasswordsDialog: () => {
           password.item = {};
-          env.dialogs.passwords.savePassword = true;
+          env.dialogs.passwords.passwordsList = true;
         },
         openUsersDialog: () => {
           // TODO:
