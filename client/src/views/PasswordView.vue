@@ -1,8 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <div
-      class="w-full bg-white text-black rounded border py-5 px-5 mt-5"
-    >
+    <div class="w-full bg-white text-black rounded border py-5 px-5 mt-5">
       <div class="flex justify-between items-center">
         <h1 class="mb-5 text-2xl">Пароли</h1>
         <div class="flex gap-5">
@@ -14,7 +12,9 @@
       </div>
       <div v-if="password.loading" class="mb-5 text-center">Зареждане...</div>
       <password-list-view />
-      <save-password-view v-if="env.dialogs.passwords.savePassword" />
+      <transition>
+        <save-password-view v-if="env.dialogs.passwords.savePassword" />
+      </transition>
     </div>
   </div>
 </template>

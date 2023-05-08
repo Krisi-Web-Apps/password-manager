@@ -4,8 +4,10 @@
     Time: {{ env.time_ms.toFixed(0) }} ms.
   </div>
   <!-- login & register -->
-  <login-view v-if="env.dialogs.auth.login" />
-  <register-view v-if="env.dialogs.auth.register" />
+  <transition-group>
+    <login-view v-if="env.dialogs.auth.login" />
+    <register-view v-if="env.dialogs.auth.register" />
+  </transition-group>
   <div class="w-full h-screen flex flex-col justify-between">
     <div>
       <navigation-bar />

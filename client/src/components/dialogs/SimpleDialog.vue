@@ -1,9 +1,9 @@
 <template>
   <div
-    class="fixed top-0 left-0 flex justify-center items-center w-full h-screen"
+    class="fixed top-0 left-0 bg-gray-900/60 flex justify-center items-center w-full h-screen"
   >
     <div
-      class="fixed border rounded shadow bg-white text-black lg:w-1/2 md:w-2/3 sm:w-3/4 w-full max-h-[500px] overflow-y-scroll"
+      class="fixed border-2 border-gray-100 rounded-md shadow-md bg-white text-black lg:w-1/2 md:w-2/3 sm:w-3/4 w-full max-h-[500px] overflow-y-scroll"
     >
       <!-- dialog header -->
       <h2 class="text-2xl text-center py-5">
@@ -15,7 +15,10 @@
 
       <!-- footer dialog -->
       <div class="flex justify-end px-5 pb-5">
-        <button class="button text-white bg-red-500 border-red-500" @click="() => $emit('close')">
+        <button
+          class="button text-white bg-red-500 border-red-500"
+          @click="() => $emit('close')"
+        >
           Затвори
         </button>
       </div>
@@ -28,5 +31,3 @@ export default {
   name: "SimpleDialog",
 };
 </script>
-
-<style lang="scss" scoped></style>
