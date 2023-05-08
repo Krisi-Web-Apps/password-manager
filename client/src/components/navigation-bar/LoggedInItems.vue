@@ -57,8 +57,7 @@ export default {
           router.push("/passwords");
         },
         openUsersDialog: () => {
-          // TODO:
-          console.log("This is users dialog!");
+          router.push("/users");
         },
         openProfileDialog: () => {
           // TODO:

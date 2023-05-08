@@ -21,9 +21,7 @@ export const useUserStore = defineStore("user", {
       terms: "",
     },
     url: "/users",
-    error: "",
-    time_ms: 0,
-    form_ref: "",
+    items: []
   }),
   actions: {
     login() {
@@ -105,5 +103,28 @@ export const useUserStore = defineStore("user", {
         })
         .finally(() => (this.loading = false));
     },
+    getItems() {
+      this.loading = true;
+      api.get(`${this.url}/items`)
+        .then(res => {
+          this.items = res.data;
+        })
+        .catch(err => {
+          const user = useUserStore();
+
+          if (err.message === "Invalid token!") {
+            app.$toast.error("Невалидна сесия!");
+            user.logout();
+          }
+          if (err.message === "jwt expired") {
+            app.$toast.error("Изтекла сесия!");
+            user.logout();
+          }
+          if (err.message === "You are not admin!") {
+            app.$toast.error("Нямате достъп до този ресурс!");
+          }
+        })
+        .finally(() => this.loading = false);
+    }
   },
 });
