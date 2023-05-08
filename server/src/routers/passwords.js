@@ -5,6 +5,7 @@ const { passwordsController } = require("@src/controllers");
 
 router.get("/items", isAuth, isAdmin, passwordsController.get.items);
 router.get("/my", isAuth, passwordsController.get.byLoggedInUser);
+router.get("/my/:id", isAuth, passwordsController.get.byIdByLoggedUser);
 
 router.post("/", isAuth, passwordsController.post.insert);
 

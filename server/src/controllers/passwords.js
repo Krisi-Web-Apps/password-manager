@@ -6,7 +6,7 @@ const { cryptojs } = require("@src/utils");
 
 const post = {
   insert: asyncHandler(async (req, res) => {
-    const { title, desc, password } = req.body;
+    const { title, desc, password, id } = req.body;
     const userId = req.user.id;
 
     const result = passwordsValidations.insert(title, password);
@@ -17,17 +17,24 @@ const post = {
     }
 
     const encryptedPassword = cryptojs.encryptData(password);
+    
+    let passwordResult = null;
 
-    const savedPasswordResult = await passwords.post.insert(
-      title,
-      desc,
-      encryptedPassword,
-      userId
-    );
+    if (!id) {
+      const savedPasswordResult = await passwords.post.insert(
+        title,
+        desc,
+        encryptedPassword,
+        userId
+      );
+      passwordResult = await passwords.get.byId(
+        savedPasswordResult.insertId
+      );
+    } else {
+      await passwords.post.update(title, desc, encryptedPassword, id);
 
-    const passwordResult = await passwords.get.byId(
-      savedPasswordResult.insertId
-    );
+      passwordResult = await passwords.get.byId(id);
+    }
 
     const decryptedPassword = cryptojs.decryptData(passwordResult[0].password);
 
@@ -48,14 +55,33 @@ const get = {
 
     const passwordsResult = await passwords.get.itemsByUserId(user.id);
 
-    passwordsResult.forEach(passwordItem => {
+    passwordsResult.forEach((passwordItem) => {
       const decryptedPassword = cryptojs.decryptData(passwordItem.password);
       passwordItem.password = decryptedPassword;
     });
 
     res.send(passwordsResult);
   }),
-}
+  byIdByLoggedUser: asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    if (!parseInt(id)) {
+      res.status(400).send({ message: "Invalid id!" });
+      return;
+    }
+
+    const passwordResult = await passwords.get.byId(id);
+
+    if (passwordResult.length === 0) {
+      res.status(400).send({ message: "Invalid id!" });
+      return;
+    }
+
+    const decryptedPassword = cryptojs.decryptData(passwordResult[0].password);
+
+    res.send({ ...passwordResult[0], password: decryptedPassword });
+  }),
+};
 
 module.exports = {
   post,

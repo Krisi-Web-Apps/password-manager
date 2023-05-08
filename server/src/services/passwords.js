@@ -6,6 +6,11 @@ const post = {
         const sql = `INSERT INTO \`passwords\` (\`title\`, \`desc\`, \`password\`, \`user_id\`) VALUES ('${title}', '${desc}', '${password}', ${user_id});`;
         const result = await executeQuery(sql, connection);
         return result;
+    },
+    update: async (title, desc, password, id) => {
+        const sql = `UPDATE \`passwords\` SET title='${title}', \`desc\`='${desc}', \`password\`='${password}' WHERE id = ${id}`;
+        const result = await executeQuery(sql, connection);
+        return result;
     }
 }
 
