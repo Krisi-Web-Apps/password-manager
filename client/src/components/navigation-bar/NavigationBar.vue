@@ -1,7 +1,4 @@
 <template>
-  <div class="pt-5">
-    <h1 class="text-4xl text-center">Мениджър на пароли</h1>
-  </div>
   <div class="container mx-auto">
     <div class="bg-gray-50 rounded shadow mt-5 p-2">
       <ul class="flex justify-center gap-2">

@@ -63,5 +63,20 @@ export const usePasswordStore = defineStore("password", {
         })
         .finally(() => (this.loading = false));
     },
+    getItem() {
+      this.loading = true;
+      api.get(`${this.url}/my/${this.item.id}`)
+        .then(res => {
+          this.item = res.data;
+        })
+        .catch((err) => {
+          if (err.message === "Invalid id!") {
+            app.$toast.error("Няма намерен запис с този идентификатор.");
+          } else {
+            app.$toast.error("Неприятана грешка!");
+          }
+        })
+        .finally(() => this.loading = false);
+    },
   },
 });

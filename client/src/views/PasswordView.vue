@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <div
-      class="w-full max-h-[660px] bg-white text-black rounded border py-5 px-5 mt-5 overflow-y-scroll"
+      class="w-full bg-white text-black rounded border py-5 px-5 mt-5"
     >
       <div class="flex justify-between items-center">
         <h1 class="mb-5 text-2xl">Пароли</h1>
