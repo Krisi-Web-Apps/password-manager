@@ -14,6 +14,16 @@ export const usePasswordStore = defineStore("password", {
       password: "",
     },
     items: [],
+    suggestion: {
+      length: 10,
+      passwordText: "",
+      permissions: {
+        uppercaseLetters: true,
+        lowercaseLetters: true,
+        numbers: true,
+        symbols: true,
+      },
+    },
   }),
   actions: {
     saveItem() {
@@ -65,8 +75,9 @@ export const usePasswordStore = defineStore("password", {
     },
     getItem() {
       this.loading = true;
-      api.get(`${this.url}/my/${this.item.id}`)
-        .then(res => {
+      api
+        .get(`${this.url}/my/${this.item.id}`)
+        .then((res) => {
           this.item = res.data;
         })
         .catch((err) => {
@@ -76,7 +87,41 @@ export const usePasswordStore = defineStore("password", {
             app.$toast.error("Неприятана грешка!");
           }
         })
-        .finally(() => this.loading = false);
+        .finally(() => (this.loading = false));
+    },
+    generatePassword() {
+      // Define the character sets to use
+      const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+      const numbers = "0123456789";
+      const symbols = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~";
+
+      // Combine the character sets
+      let allCharacters = "";
+
+      if (this.suggestion.permissions.uppercaseLetters) allCharacters += uppercaseLetters;
+      if (this.suggestion.permissions.lowercaseLetters) allCharacters += lowercaseLetters;
+      if (this.suggestion.permissions.numbers) allCharacters += numbers;
+      if (this.suggestion.permissions.symbols) allCharacters += symbols;
+
+      if (
+        !this.suggestion.permissions.uppercaseLetters &&
+        !this.suggestion.permissions.lowercaseLetters &&
+        !this.suggestion.permissions.numbers &&
+        !this.suggestion.permissions.symbols
+      ) {
+        app.$toast.warning("Няма как да се генериран парола!");
+        return;
+      }
+
+      // Generate the password
+      let password = "";
+      for (let i = 0; i < this.suggestion.length; i++) {
+        const randomIndex = Math.floor(Math.random() * allCharacters.length);
+        password += allCharacters[randomIndex];
+      }
+
+      this.suggestion.passwordText = password;
     },
   },
 });

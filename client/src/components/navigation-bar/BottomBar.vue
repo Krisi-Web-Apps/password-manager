@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white text-black border shadow">
+  <div class="bg-white text-black border shadow mt-5">
     <div class="container mx-auto flex gap-2 my-5">
       <router-link to="/" class="button bg-gray-300 border-gray-400">
         Начало
