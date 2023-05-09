@@ -17,6 +17,24 @@
     </li>
   </ul>
   <div v-else>Все още нямате въведени пароли.</div>
+  <transition>
+    <confirm-dialog
+      v-if="env.dialogs.global.confimDialog"
+      @close="onCancel"
+      @confirm="onConfirm"
+    >
+      <template v-slot:header>
+        Сигурен/а ли сте, че искате да изтриете този запис?
+      </template>
+      <template v-slot:body>
+        <div class="px-5 mb-5">
+          <div>Заглавие: {{ password.item.title }}</div>
+          <div>Парола: {{ password.item.password }}</div>
+          <div>Описание: {{ password.item.desc }}</div>
+        </div>
+      </template>
+    </confirm-dialog>
+  </transition>
 </template>
 
 <script>
@@ -26,12 +44,14 @@ import { useEnvStore } from "@src/stores/env";
 
 // dialogs
 import DropdownDialog from "@src/components/dialogs/DropdownDialog.vue";
+import ConfirmDialog from "@src/components/dialogs/ConfirmDialog.vue";
 
 export default {
   name: "PasswordListView",
   components: {
     // dialogs
     DropdownDialog,
+    ConfirmDialog,
   },
   setup() {
     const password = usePasswordStore();
@@ -40,6 +60,12 @@ export default {
     if (password.items.length === 0) password.getItems();
 
     const functions = {
+      onConfirm: () => {
+        password.deleteItem();
+      },
+      onCancel: () => {
+        env.dialogs.global.confimDialog = false;
+      },
       handleClose: () => {},
     };
 
@@ -57,13 +83,14 @@ export default {
         label: "Изтриване",
         color: "text-red-500 hover:text-white hover:bg-red-500",
         action: (id) => {
-          // TODO:
-          console.log(id);
+          password.item.id = id;
+          password.getItem();
+          env.dialogs.global.confimDialog = true;
         },
       },
     ];
 
-    return { dialogOptions, password, ...functions };
+    return { dialogOptions, env, password, ...functions };
   },
 };
 </script>

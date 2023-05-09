@@ -9,4 +9,6 @@ router.get("/my/:id", isAuth, passwordsController.get.byIdByLoggedUser);
 
 router.post("/", isAuth, passwordsController.post.insert);
 
+router.delete("/my/:id", isAuth, passwordsController.del.byId);
+
 module.exports = router;

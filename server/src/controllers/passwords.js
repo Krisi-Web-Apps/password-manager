@@ -83,7 +83,28 @@ const get = {
   }),
 };
 
+const del = {
+  byId: asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    if (!parseInt(id)) {
+      res.status(400).send({ message: "Invalid id!" });
+      return;
+    }
+    
+    const deletedResult = await passwords.del.byId(id);
+
+    if (deletedResult.affectedRows === 0) {
+      res.status(400).send({ message: "Invalid id!" });
+      return;
+    }
+
+    res.send({ message: "success" });
+  }),
+}
+
 module.exports = {
   post,
   get,
+  del,
 };

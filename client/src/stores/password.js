@@ -89,6 +89,27 @@ export const usePasswordStore = defineStore("password", {
         })
         .finally(() => (this.loading = false));
     },
+    deleteItem() {
+      this.loading = true;
+      api
+        .delete(`${this.url}/my/${this.item.id}`)
+        .then((res) => {
+          if (res.status === 200) {
+            this.getItems();
+            app.$toast.success("Успешно изтрит запис!");
+            const env = useEnvStore();
+            env.dialogs.global.confimDialog = false;
+            return;
+          }
+          app.$toast.error("Неприятна грешка!");
+        })
+        .catch((err) => {
+          if (err.message === "Invalid id!") {
+            app.$toast.error("Невалиден идентификатор!");
+          }
+        })
+        .finally(() => (this.loading = false));
+    },
     generatePassword() {
       // Define the character sets to use
       const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -99,8 +120,10 @@ export const usePasswordStore = defineStore("password", {
       // Combine the character sets
       let allCharacters = "";
 
-      if (this.suggestion.permissions.uppercaseLetters) allCharacters += uppercaseLetters;
-      if (this.suggestion.permissions.lowercaseLetters) allCharacters += lowercaseLetters;
+      if (this.suggestion.permissions.uppercaseLetters)
+        allCharacters += uppercaseLetters;
+      if (this.suggestion.permissions.lowercaseLetters)
+        allCharacters += lowercaseLetters;
       if (this.suggestion.permissions.numbers) allCharacters += numbers;
       if (this.suggestion.permissions.symbols) allCharacters += symbols;
 
