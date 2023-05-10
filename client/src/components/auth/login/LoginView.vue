@@ -3,9 +3,6 @@
     <template v-slot:header>Login</template>
     <template v-slot:body>
       <form @submit.prevent="handleLogin" class="px-5">
-        <p v-if="user.error" class="mb-5 text-red-500 text-center">
-          {{ user.error }}
-        </p>
         <div class="mb-5">
           <label for="email">Имейл Адрес</label>
           <input
@@ -32,7 +29,7 @@
           Вход в системата
         </button>
         <div class="mt-5">
-          <button @click="handleOpenRegister" class="px-2 rounded">
+          <button type="button" @click="handleOpenRegister" class="px-2 rounded">
             Още нямате профил?
           </button>
         </div>
@@ -74,5 +71,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

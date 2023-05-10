@@ -6,6 +6,10 @@ export const useEnvStore = defineStore("env", {
     dialogs: {
       global: {
         confimDialog: false,
+        navbars: {
+          top: false,
+          bottom: false,
+        }
       },
       auth: {
         login: false,

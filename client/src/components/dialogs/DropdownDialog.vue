@@ -1,10 +1,6 @@
 <template>
   <div class="relative">
-    <button
-      @click="isOpen = !isOpen"
-      @focusout="handleClose"
-      class="py-2 px-4 border rounded"
-    >
+    <button @click="() => handleOpen()" class="py-2 px-4 border rounded">
       Опции
     </button>
     <ul
@@ -16,7 +12,8 @@
         :key="index"
         class="w-full py-1.5 px-4 bg-white border-white hover:bg-gray-200 rounded cursor-pointer"
         :class="item.color"
-        @click.stop="() => item.action(props.id)"
+        @click="() => handleAction(item)"
+        :id="`dropdown_password_window_${props.id}`"
       >
         {{ item.label }}
       </li>
@@ -37,10 +34,15 @@ export default {
     const isOpen = ref();
 
     const functions = {
+      handleAction: (item) => {
+        isOpen.value = !isOpen.value;
+        item.action(props.id);
+      },
+      handleOpen: () => {
+        isOpen.value = !isOpen.value;
+      },
       handleClose: () => {
-        setTimeout(() => {
-          isOpen.value = !isOpen.value;
-        }, 100);
+        isOpen.value = !isOpen.value;
       },
     };
 

@@ -83,7 +83,7 @@
             >
           </div>
           <div class="mb-5">
-            <button @click="handleOpenLogin" class="px-2 rounded">
+            <button type="button" @click="handleOpenLogin" class="px-2 rounded">
               Вече имате профил?
             </button>
           </div>
@@ -130,5 +130,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

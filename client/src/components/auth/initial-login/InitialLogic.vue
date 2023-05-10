@@ -1,7 +1,6 @@
 <template></template>
 
 <script>
-import api from '@src/boot/axios';
 import { useEnvStore } from '@src/stores/env';
 import { useUserStore } from '@src/stores/user';
 

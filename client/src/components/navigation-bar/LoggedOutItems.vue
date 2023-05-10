@@ -1,38 +1,51 @@
 <template>
-  <li>
-    <button @click="() => handleClick({ func: 'openLoginDialog' })" class="button">Вход</button>
+  <li :class="props.classNames">
+    <button
+      @click="() => handleClick({ func: 'openLoginDialog' })"
+      class="w-full button"
+    >
+      Вход
+    </button>
   </li>
-  <li>
-    <button @click="() => handleClick({ func: 'openRegisterDialog' })" class="button">Регистрация</button>
+  <li :class="props.classNames">
+    <button
+      @click="() => handleClick({ func: 'openRegisterDialog' })"
+      class="w-full button"
+    >
+      Регистрация
+    </button>
   </li>
 </template>
 
 <script>
 // stores
-import { useEnvStore } from '@src/stores/env';
-import { useUserStore } from '@src/stores/user';
+import { useEnvStore } from "@src/stores/env";
 
 export default {
   name: "LoggedOutItems",
-  setup() {
-    const user = useUserStore();
+  props: {
+    classNames: String,
+  },
+  setup(props) {
     const env = useEnvStore();
+
     const functions = {
       open: {
         openLoginDialog: () => {
           env.dialogs.auth.login = true;
+          env.dialogs.global.navbars.top = false;
         },
         openRegisterDialog: () => {
           env.dialogs.auth.register = true;
+          env.dialogs.global.navbars.top = false;
         },
       },
       handleClick: ({ func }) => {
         functions.open[func]();
-      }
-    }
-    return { ...functions };
+      },
+    };
+    
+    return { ...functions, props };
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
