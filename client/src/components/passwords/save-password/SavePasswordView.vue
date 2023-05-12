@@ -16,14 +16,13 @@
         </div>
         <div class="mb-5">
           <label for="desc">Описание</label>
-          <input
-            type="text"
+          <textarea
             placeholder="Въведете някакво описание..."
             id="desc"
+            rows="6"
             class="w-full py-2 px-4 mt-2 rounded border"
             v-model="password.item.desc"
-            :disabled="password.loading"
-          />
+            :disabled="password.loading"></textarea>
         </div>
         <div class="mb-5">
           <label for="password">Парола *</label>
