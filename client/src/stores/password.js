@@ -41,12 +41,6 @@ export const usePasswordStore = defineStore("password", {
           if (err.message === "Title is required!") {
             app.$toast.error("Полето заглавие е задължително!");
           }
-          if (err.message === "Title must be only letters.") {
-            app.$toast.error(
-              "Полето заглавие трябва да съдържа само главни, малки букви и интервали.",
-              { duration: 10000 }
-            );
-          }
           if (err.message === "Title must be longer than 3 letters.") {
             app.$toast.error(
               "Полето заглавие трябва да съдържа повече от 3 букви.",
