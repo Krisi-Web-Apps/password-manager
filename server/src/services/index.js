@@ -1,4 +1,4 @@
-const users = require("@src/services/users");
+const users = require("./users");
 
 module.exports = {
     users,

@@ -4,7 +4,7 @@ import { useEnvStore } from "@src/stores/env";
 import { useUserStore } from "@src/stores/user";
 
 const api = axios.create({ baseURL: import.meta.env.VITE_BASE_API_URL });
-// const api = axios.create({ baseURL: "https://password-manager-scap.onrender.com/" });
+// const api = axios.create({ baseURL: "https://backend.password-manager.krisidev.com" });
 
 let start = 0;
 

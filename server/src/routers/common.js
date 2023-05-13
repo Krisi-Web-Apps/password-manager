@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { commonController } = require("@src/controllers");
-const { isAuth, isAdmin } = require("@src/config/middlewares");
+const { commonController } = require("../controllers");
+const { isAuth, isAdmin } = require("../config/middlewares");
 
 router.get("/", commonController.get.home);
 router.get("/about", commonController.get.about);

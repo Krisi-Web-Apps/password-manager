@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
 
-const { users } = require("@src/services");
-const usersValidations = require("@src/validations/users");
-const { bcrypt, jwt, cryptojs } = require("@src/utils");
+const { users } = require("../services");
+const usersValidations = require("../validations/users");
+const { bcrypt, jwt, cryptojs } = require("../utils");
 
 const post = {
   register: asyncHandler(async (req, res) => {

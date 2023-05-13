@@ -1,4 +1,4 @@
-const { jwt, cryptojs } = require("@src/utils");
+const { jwt, cryptojs } = require("../utils");
 
 const isAuth = (req, res, next) => {
   const token = req.headers.authorization;

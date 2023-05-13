@@ -1,6 +1,6 @@
-const commonRouter = require("@src/routers/common");
-const usersRouter = require("@src/routers/users");
-const passwordsRouter = require("@src/routers/passwords");
+const commonRouter = require("./common");
+const usersRouter = require("./users");
+const passwordsRouter = require("./passwords");
 
 module.exports = {
     commonRouter,

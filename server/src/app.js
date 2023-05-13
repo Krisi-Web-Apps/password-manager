@@ -12,20 +12,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routers
-const { commonRouter, usersRouter, passwordsRouter } = require("@src/routers");
+const { commonRouter, usersRouter, passwordsRouter } = require("./routers");
 
 app.use("/", commonRouter);
 app.use("/users", usersRouter);
 app.use("/passwords", passwordsRouter);
 
 // custom middlewares
-const { errorHandler } = require("@src/config/middlewares");
+const { errorHandler } = require("./config/middlewares");
 
 app.use(errorHandler);
 
 const PORT = process.env.PORT;
-const env = process.env.NODE_ENV;
 
 app.listen(PORT, () => {
-    console.log(`Server started on port: ${colors.green(PORT)} in ${colors.green(env)}`);
+    if (process.env.NODE_ENV === "development") {
+        console.log(`Server started on port: ${colors.green(PORT)} in ${colors.green(process.env.NODE_ENV)}`);
+    }
 });

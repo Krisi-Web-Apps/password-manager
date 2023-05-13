@@ -1,8 +1,8 @@
-const readSQLFileAsString = require("@src/utils/fs/read-sql-file-as-string");
-const executeQuery = require("@src/utils/queries/execute-query");
-const bcrypt = require("@src/utils/bcrypt/bcrypt");
-const jwt = require("@src/utils/jwt/jwt");
-const cryptojs = require("@src/utils/cryptojs");
+const readSQLFileAsString = require("./fs/read-sql-file-as-string");
+const executeQuery = require("./queries/execute-query");
+const bcrypt = require("./bcrypt/bcrypt");
+const jwt = require("./jwt/jwt");
+const cryptojs = require("./cryptojs");
 
 module.exports = {
     readSQLFileAsString,

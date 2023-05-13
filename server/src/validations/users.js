@@ -1,4 +1,4 @@
-const { username, email, password } = require("@src/validators");
+const { username, email, password } = require("../validators");
 
 const register = (first_name, last_name, usernameText, emailText, passwordText, cpassword) => {
     if (!first_name || !last_name) return "First and last name are required!";

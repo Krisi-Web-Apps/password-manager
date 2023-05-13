@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
-const { isAuth, isAdmin } = require("@src/config/middlewares");
-const { usersController } = require("@src/controllers");
+const { isAuth, isAdmin } = require("../config/middlewares");
+const { usersController } = require("../controllers");
 
 router.get("/", isAuth, usersController.get.user);
 router.get("/search", isAuth, isAdmin, usersController.get.searchBy);

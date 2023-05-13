@@ -1,5 +1,5 @@
-const connection = require("@src/config/db");
-const executeQuery = require("@src/utils/queries/execute-query");
+const connection = require("../config/db");
+const executeQuery = require("../utils/queries/execute-query");
 
 const post = {
   insert: async (title, desc, password, user_id) => {

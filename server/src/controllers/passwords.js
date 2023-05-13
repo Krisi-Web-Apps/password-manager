@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
 
-const passwordsValidations = require("@src/validations/passwords");
-const passwords = require("@src/services/passwords");
-const { cryptojs } = require("@src/utils");
+const passwordsValidations = require("../validations/passwords");
+const passwords = require("../services/passwords");
+const { cryptojs } = require("../utils");
 
 const post = {
   insert: asyncHandler(async (req, res) => {

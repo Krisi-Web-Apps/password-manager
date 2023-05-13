@@ -1,6 +1,6 @@
-const commonController = require("@src/controllers/common");
-const usersController = require("@src/controllers/users");
-const passwordsController = require("@src/controllers/passwords");
+const commonController = require("./common");
+const usersController = require("./users");
+const passwordsController = require("./passwords");
 
 module.exports = {
     commonController,
